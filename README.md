@@ -1,6 +1,6 @@
 # Peonies Site
 
-[Peonies Site Website] (https://rizki-amani-peoniessite.pbp.cs.ui.ac.id)
+[Peonies Site Website](https://rizki-amani-peoniessite.pbp.cs.ui.ac.id)
 
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 

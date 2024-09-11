@@ -1,59 +1,42 @@
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFE5E5;
-        }
-        header {
-            background-color: #E5836D;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        footer {
-            background-color: #E5836D;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        main {
-            text-align: center;
-        }
-        
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Peonies Site</h1>
-        <p><strong>Fresh Flowers, Beautiful Bouquets</strong></p>
-        <p>Further information: @kikiihsna</p>
-    </header>
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ app_name }}</h1>
 
-    <main>
-        <!-- untuk spacing -->
-        <p></p>     
+<h5>NPM: </h5>
+<p>{{ npm }}<p>
+<h5>Name: </h5>
+<p>{{ name }}<p>
+<h5>Class: </h5>
+<p>{{ class_name }}<p>
 
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://i.pinimg.com/736x/fd/78/06/fd7806fc586be705783d2be23a304d05.jpg" 
-                 alt="Overview Image 1" 
-                 style="display: block; margin: 0 auto; width: auto; height: 300px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-        </div>
-        <p>"From classic roses to exotic blooms, our flower collection has</p>
-        <p>something for every taste and occasion. Explore our selection today and find</p>
-        <p>the perfect bouquet for your loved ones!"</p>  
-        
-    </main>
-    <h4>Name: <span>{{ name }} ({{ npm }})</span></h4>
-    <h4>Class: <span>{{ class_name }}</span></h4>    
-    <h4>App: <span>{{ app_name }}</span></h4>
+{% if not product_list %}
+<h5>There are no products available at this moment.</h5>
+{% else %}
+<table>
+  <tr>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Bouquet Type</th>
+    <th>Wrap Color</th>
+  </tr>
 
+  {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+  {% for product in product_list %}
+  <tr>
+    <td>{{ product.name }}</td>
+    <td>{{ product.price }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.bouquet_type }}</td>
+    <td>{{ product.wrap_color }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
 
-    <footer>
-        <p>@ 2024 Official Store</p>
-    </footer>
-</body>
+<br />
+
+<a href="{% url 'main:create_product' %}">
+  <button>Add New Collection</button>
+</a>
+{% endblock content %}
