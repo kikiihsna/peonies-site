@@ -1,6 +1,13 @@
 # Peonies Site
+Welcome to Peonies Site, your one-stop shop for fresh, beautiful flowers!
 
 [Peonies Site Website](https://rizki-amani-peoniessite.pbp.cs.ui.ac.id)
+
+## Daftar Tugas:
+- **[Tugas 2](#tugas-2)**<br>
+- **[Tugas 3](#tugas-3)**<br>
+
+## Tugas 2
 
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 
@@ -116,4 +123,52 @@ Django sering dipilih sebagai framework pemula karena beberapa alasan:
 Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menyediakan cara untuk berinteraksi dengan database menggunakan objek Python daripada menulis query SQL secara langsung. ORM memungkinkan pemetaan antara kelas Python dan tabel database, membuat pengembangan lebih intuitif dan mengurangi kebutuhan untuk penulisan query SQL yang rumit.
 
 
+## Tugas 3
+
+### 1. Mengapa Kita Memerlukan Data Delivery dalam Pengimplementasian Sebuah Platform?
+Data delivery diperlukan untuk mentransfer informasi antar sistem atau antar bagian dalam suatu platform, sehingga memungkinkan komunikasi yang efektif antara backend dan frontend atau antar aplikasi yang berbeda. Pada pengembangan suatu platform, data delivery akan memastikan bahwa informasi dapat "dipertukarkan" dengan cara yang terstruktur dan juga konsisten. Hal ini penting terutama dalam aplikasi yang membutuhkan integrasi berbagai komponen atau layanan, seperti API, supaya pengguna bisa menerima data yang relevan dengan cepat dan aman.
+
+### 2. Menurutmu, Mana yang Lebih Baik antara XML dan JSON? Mengapa JSON Lebih Populer Dibandingkan XML?
+Menurut aku, JSON lebih baik berdasarkan alasan yang aku pahami: 
+- Mudah dibaca: JSON lebih ringkas dan lebih mudah dipahami oleh manusia dibandingkan XML yang memiliki tag yang lebih panjang.
+- Dukungan di penggunaan bahasa pemrograman: JSON lebih mudah diintegrasikan di sebagian besar bahasa pemrograman modern, termasuk JavaScript dan Python, karena formatnya menyerupai struktur objek pada bahasa tersebut.
+- Efisiensi: JSON lebih ringan dibandingkan XML dalam hal ukuran data yang dikirim, sehingga lebih cepat di jaringan dan lebih hemat bandwidth.
+
+Dari apa yang aku baca, JSON lebih "populer" karena alasan-alasan di atas, terutama dalam konteks aplikasi web dan API modern di mana kecepatan dan efisiensi sangat penting. Namun, XML sendiri masih digunakan dalam aplikasi tertentu yang membutuhkan skema data yang lebih kompleks atau validasi yang ketat.
+
+### 3. Jelaskan Fungsi dari Method is_valid() pada Form Django dan Mengapa Kita Membutuhkan Method Tersebut?
+Method `is_valid()` pada form Django digunakan untuk memvalidasi data yang di-input oleh pengguna sebelum data tersebut diproses atau disimpan ke dalam database. Fungsi ini akan memeriksa apakah semua field yang diisikan sesuai dengan aturan yang telah ditentukan pada form, seperti validasi tipe data, batasan panjang karakter, dan apakah field tersebut wajib diisi atau tidak. Jika data valid, method ini akan mengembalikan nilai True, dan jika tidak valid, method ini akan mengembalikan nilai False serta menampilkan pesan kesalahan secara otomatis.
+
+Alasan mengapa kita membutuhkan `is_valid()` adalah untuk memastikan bahwa data yang di-input pengguna sesuai dengan harapan, sehingga mencegah kesalahan atau kerusakan data pada database serta memberikan feedback yang tepat kepada pengguna jika terdapat kesalahan.
+
+### 4. Mengapa Kita Membutuhkan csrf_token Saat Membuat Form di Django? Apa yang Dapat Terjadi Jika Kita Tidak Menambahkan csrf_token Pada Form Django? Bagaimana Hal Tersebut Dapat Dimanfaatkan oleh Penyerang?
+`csrf_token` menjadi token keamanan yang digunakan untuk melindungi aplikasi dari serangan Cross-Site Request Forgery (CSRF). Saat membuat form di Django, csrf_token memastikan bahwa setiap request yang dikirim berasal dari pengguna yang sah dan tidak dimanipulasi oleh pihak ketiga. Jika implementasi tanpa csrf_token, penyerang dapat memanfaatkan celah ini untuk melakukan tindakan yang tidak sah (seperti mengirim form atau memodifikasi data).
+
+Jika tidak menggunakan csrf_token, aplikasi menjadi rentan terhadap serangan CSRF, di mana penyerang dapat membuat pengguna mengirim request tanpa disadari. Hal ini dapat dimanfaatkan oleh penyerang untuk mengubah data, membuat transaksi palsu, atau bahkan menjalankan aksi berbahaya lainnya atas nama pengguna yang sah.
+
+### 5. Jelaskan Bagaimana Cara Kamu Mengimplementasikan Checklist di Atas Secara Step-by-Step (Bukan Hanya Sekadar Mengikuti Tutorial)?
+Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan checklist pada proyek ini:
+1. **Implementasi Skeleton dan UUID:**
+ Langkah ini memang tidak diwajibkan, namun saya tetap mengimplementasikan supaya bisa lebih terbiasa dan mendafaptakn benefit nya.
+
+2. **Membuat Model:**
+ Saya memulai dengan membuat model untuk menyimpan data yang diperlukan, dan saya namakan sebagai Product. Saya menentukan field apa saja yang dibutuhkan serta tipe datanya.
+
+3. **Membuat Form**: 
+ Selanjutnya, saya membuat form berbasis model (ModelForm) untuk menerima input pengguna terkait produk yang akan ditambahkan.
+
+4. **Membuat Views:**
+ Saya menambahkan fungsi view yang meng-handle form, menggunakan method `is_valid()` untuk memvalidasi data yang masuk. Jika data valid, saya menyimpan data tersebut ke dalam database dan melakukan redirect ke halaman utama.
+
+5. **Menambahkan URL Patterns:**
+ Saya menambahkan URL pattern untuk menghubungkan view dengan URL yang spesifik, sehingga pengguna dapat mengakses form dan mengirim data.
+
+6. **Membuat Template:**
+ Saya membuat file HTML untuk menampilkan form dan data yang telah diinput pengguna dalam bentuk tabel, serta memastikan penggunaan csrf_token untuk keamanan.
+7. **Testing:**
+ Terakhir, saya menguji seluruh fitur yang telah dibuat, seperti menambah produk baru, menampilkan produk yang telah di-input, dan memvalidasi form, untuk memastikan semua berjalan sesuai harapan.
     
+### Bukti Postman
+![Postman XML](PostmanXML.jpeg)
+![Postman JSON](PostmanJSON.jpeg)
+![Postman with ID](PostmanwithID.jpeg)
