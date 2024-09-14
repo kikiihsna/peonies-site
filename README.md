@@ -169,6 +169,6 @@ Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan check
  Terakhir, saya menguji seluruh fitur yang telah dibuat, seperti menambah produk baru, menampilkan produk yang telah di-input, dan memvalidasi form, untuk memastikan semua berjalan sesuai harapan.
     
 ### Bukti Postman
-![Postman XML](PostmanXML.jpeg)
-![Postman JSON](PostmanJSON.jpeg)
-![Postman with ID](PostmanwithID.jpeg)
+![Postman XML](PostmanXML.png)
+![Postman JSON](PostmanJSON.png)
+![Postman with ID](PostmanwithID.png)
