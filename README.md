@@ -6,6 +6,7 @@ Welcome to Peonies Site, your one-stop shop for fresh, beautiful flowers!
 ## Daftar Tugas:
 - **[Tugas 2](#tugas-2)**<br>
 - **[Tugas 3](#tugas-3)**<br>
+- **[Tugas 4](#tugas-4)**<br>
 
 ## Tugas 2
 
@@ -165,6 +166,7 @@ Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan check
 
 6. **Membuat Template:**
  Saya membuat file HTML untuk menampilkan form dan data yang telah diinput pengguna dalam bentuk tabel, serta memastikan penggunaan csrf_token untuk keamanan.
+
 7. **Testing:**
  Terakhir, saya menguji seluruh fitur yang telah dibuat, seperti menambah produk baru, menampilkan produk yang telah di-input, dan memvalidasi form, untuk memastikan semua berjalan sesuai harapan.
     
@@ -172,3 +174,100 @@ Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan check
 ![Postman XML](PostmanXML.png)
 ![Postman JSON](PostmanJSON.png)
 ![Postman with ID](PostmanwithID.png)
+
+## Tugas 4
+
+### 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()
+
+**HttpResponseRedirect():** 
+- Biasanya digunakan untuk mengembalikan respon redirect secara **manual** dengan URL yang spesifik. Dalam penggunannya, biasanya ketika ingin mengontrol URL tujuan secara lebih eksplisit.
+- Contoh:
+    ```python
+    from django.http import HttpResponseRedirect
+    return HttpResponseRedirect('/some-url/')
+    ```
+
+**redirect():** 
+- Ini merupakan salah satu fungsi bawaan dari Django yang lebih fleksibel, dapat menerima URL, nama view, atau objek model. Tergolong efisien karena secara otomatis memilih metode redirect yang sesuai.
+- Contoh:
+    ```python
+    from django.shortcuts import redirect
+    return redirect('home')  # 'home' adalah nama dari URL pattern
+    ```
+
+### 2. Jelaskan cara kerja penghubungan model Product dengan User!
+- Pada Django, penghubungan antara **Product** dengan **User** dapat dilakukan dengan menambahkan **ForeignKey** pada model Product yang merujuk ke model User bawaan Django.
+  
+- Implementasi:
+  ```python
+  from django.contrib.auth.models import User
+  from django.db import models
+
+  class Product(models.Model):
+      name = models.CharField(max_length=255)
+      price = models.IntegerField()
+      description = models.TextField()
+      bouquet_type = models.CharField(max_length=10, choices=BOUQUET_TYPE_CHOICES, default='single') 
+      wrap_color = models.CharField(max_length=50, default='')
+      admin = models.ForeignKey(User, on_delete=models.CASCADE)
+  ```
+
+- Pada contoh implementasi diatas, setiap produk dihubungkan dengan user yang spesifik melalui field `admin`. Jika `User` dihapus, maka semua produk yang terkait dengan user tersebut juga akan dihapus karena menggunakan opsi `on_delete=models.CASCADE`.
+
+### 3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+
+**Authentication**: 
+*Authentication* adalah proses memverifikasi identitas pengguna, umumnya dilakukan dengan mencocokkan username dan juga password.
+  
+**Authorization**: 
+*Authorization* adalah proses menentukan "kebolehan" akses pengguna setelah autentikasi berhasil. Hal ini menentukan apa yang boleh dilakukan pengguna (misal, mengakses ke halaman tertentu yang credential atau jika ingin melakukan modifikasi data).
+
+**Implementasi Authentication dan Authorization di Django**:
+- Django menyediakan middleware autentikasi (`AuthenticationMiddleware`) yang secara otomatis mengelola status autentikasi pengguna melalui session.
+- Ketika pengguna login menggunakan form, Django akan menyimpan status login dalam session berbasis cookie.
+- Django juga memiliki sistem izin (permissions) untuk mengatur authorization.
+
+### 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+**Mekanisme Session**: 
+- Django menggunakan sesi berbasis cookie untuk mengenal dan mengingat pengguna yang telah login. Setelah pengguna berhasil login, Django akan menyimpan ID pengguna dalam sesi, dan sesi tersebut disimpan dalam bentuk cookie di browser pengguna.
+  
+**Kegunaan Lain dari Cookies**:
+- Selain menyimpan informasi sesi, cookies juga dapat digunakan untuk melacak preferensi pengguna, pengaturan antarmuka, atau status login di berbagai halaman.
+
+**Apakah semua Cookies aman digunakan?**:
+- Tidak semua cookies aman. Beberapa cookies dapat diakses oleh JavaScript jika tidak ditandai sebagai `HttpOnly`. Cookies juga dapat dikirim melalui koneksi yang tidak aman kecuali diberi atribut `Secure` yang hanya mengizinkan pengiriman cookies melalui HTTPS.
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan checklist pada tugas 4 ini:
+1. **Mengaktivkan env:**
+ Langkah ini sebenernya hal yang akan selalu dijalankan dahulu di setiap pengerjaan tugas tugas django
+
+2. **Membuat Fungsi dan Form Registrasi:**
+ Pada tahap ini, saya menggunakan `UserCreationForm` bawaan Django untuk membuat form registrasi. Lalu menambahkan view untuk menampilkan form data dalam memproses pendaftaran pengguna.
+
+ Selanjutkan, membuat URL untuk mengakses halaman registrasi dan melengkapi template HTML untuk menampilkan form tersebut. Jika sudah, akan dikaitkan dengan data di model Product.
+
+3. **Membuat Fungsi Login:**
+  Langkah langkahnya meliputi, pembuatan fungsi dalam menangani login yang akan mengambil data dari form (username dan passwordnya) yang kemudian akan melakukan validasi kecocokan data tersebut.
+
+  Jika valid, saya menggunakan fungsi `login()` dari Django untuk **membuat sesi** bagi pengguna yang telah berhasil login. Sesi ini akan digunakan untuk melacak pengguna yang sudah terautentikasi.
+
+4. **Membuat Fungsi Logout:**
+  Mirip dengan login, fungsi logout akan menangani penghentian sesi pengguna. Jika pengguna memutuskan untuk logout, kita akan menghapus sesi melalui fungsi `logout()`
+
+  Setelah logout, cookies akan terhapus yang meliputi informasi login terakhir supaya pengguna benar benar keluar dari sistem
+
+5. **Merestriksi Akses Halaman Main:**
+  Pada tahap ini, saya membatasi akses ke halaman tertentu dimana hanya bisa diakses untuk pengguna yang sudah login. Untuk melakukan ini, saya menggunakan dekorator `@login_required`
+
+  Dekorator ini secara otomatis memeriksa apakah pengguna sudah login sebelum memberikan akses ke halaman tersebut.
+
+6. **Merestriksi Akses Halaman Main:**
+  Cookies digunakan untuk menyimpan data sementara di browser pengguna. Di sini, saya memanfaatkan cookies untuk menyimpan informasi waktu terakhir pengguna login.
+
+7. **Menghubungkan Model `MoodEntry` dengan User:**
+  Model `Product` memiliki **foreign key** yang merujuk pada model `User`. Ini memastikan bahwa setiap data yang disimpan terkait dengan pengguna yang spesifik.
+  
+  Ketika pengguna login dan melihat halaman utama, entri product yang ditampilkan hanya menampilkan informasi spesifik milik pengguna tersebut.
+  
+  Penggunaan foreign key memastikan bahwa data tersimpan dengan baik dan terkait dengan pengguna secara aman.
