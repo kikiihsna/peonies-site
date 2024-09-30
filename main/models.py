@@ -24,3 +24,4 @@ class Product(models.Model):
     @property
     def is_in_stock(self):
         return self.stock > 0
+    

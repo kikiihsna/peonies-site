@@ -1,13 +1,14 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 {% include 'navbar.html' %}
 
-<div class="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8 mt-10"> <!-- Added mt-20 for margin-top -->  <div class="max-w-md w-full bg-white bg-opacity-90 p-8 rounded-2xl shadow-lg space-y-8">
+<div class="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8 mt-10"> <!-- Added mt-20 for margin-top -->  
+  <div class="max-w-md w-full bg-white bg-opacity-90 p-8 rounded-2xl shadow-lg space-y-8">
     <div>
       <h1 class="text-center text-3xl font-extrabold text-pink-800">
-        Add New Collection
+        Edit Product
       </h1>
     </div>
 
@@ -31,11 +32,11 @@
 
       <div class="flex justify-center">
         <button type="submit" class="bg-pink-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-pink-700 transition duration-300">
-          Add Flower
+          Edit Product
         </button>
       </div>
     </form>
   </div>
 </div>
 
-{% endblock %}
+{% endblock content %}

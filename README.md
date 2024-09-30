@@ -1,12 +1,14 @@
 # Peonies Site
 Welcome to Peonies Site, your one-stop shop for fresh, beautiful flowers!
 
-[Peonies Site Website](https://rizki-amani-peoniessite.pbp.cs.ui.ac.id)
+[Peonies Site Website](http://rizki-amani-peoniessite.pbp.cs.ui.ac.id)
 
 ## Daftar Tugas:
 - **[Tugas 2](#tugas-2)**<br>
 - **[Tugas 3](#tugas-3)**<br>
 - **[Tugas 4](#tugas-4)**<br>
+- **[Tugas 5](#tugas-5)**<br>
+
 
 ## Tugas 2
 
@@ -271,3 +273,129 @@ Berikut adalah langkah-langkah yang saya lakukan dalam mengimplementasikan check
   Ketika pengguna login dan melihat halaman utama, entri product yang ditampilkan hanya menampilkan informasi spesifik milik pengguna tersebut.
   
   Penggunaan foreign key memastikan bahwa data tersimpan dengan baik dan terkait dengan pengguna secara aman.
+
+
+## Tugas 5
+
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Jika terdapat beberapa CSS selector yang diterapkan pada elemen yang sama, berikut adalah urutan prioritas-nya:
+
+1. **Inline Styles**: Gaya yang ditulis langsung pada elemen HTML memiliki prioritas tertinggi.
+   ```html
+   <div style="color: red;">Contoh</div>
+   ```
+2. **ID Selectors**: Selector berbasis `id` memiliki prioritas lebih tinggi dari class, pseudo-class, dan elemen.
+   ```css
+   #example {
+     color: blue;
+   }
+   ```
+3. **Class, Pseudo-Class, and Attribute Selectors**: Selectors seperti `.class`, `[attribute=value]`, dan `:hover` memiliki prioritas di bawah ID tetapi lebih tinggi dari elemen.
+   ```css
+   .example {
+     color: green;
+   }
+   ```
+4. **Element and Pseudo-Element Selectors**: Selectors berbasis elemen seperti `div`, `h1`, dan pseudo-elemen seperti `::before` memiliki prioritas paling rendah.
+   ```css
+   div {
+     color: black;
+   }
+   ```
+5. **Important Rule**: Properti yang diberi `!important` akan mengabaikan semua aturan specificity dan selalu diterapkan, kecuali jika ada properti lain yang juga menggunakan `!important` dengan specificity lebih tinggi.
+   ```css
+   p {
+     color: yellow !important;
+   }
+   ```
+
+
+### 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+**Responsive design** menjadi konsep penting dalam pengembangan aplikasi web yang memungkinkan situs web untuk tampil dan berfungsi dengan baik di berbagai ukuran layar, mulai dari ponsel hingga desktop. Hal ini penting karena pengguna web mengakses situs dari perangkat dengan ukuran layar yang bervariasi, dan situs yang tidak responsif dapat menghasilkan impression pengguna yang buruk.
+
+Contoh simple aplikasi yang sudah menerapkan responsive design adalah aplikasi **Twitter** yang berhasil beradaptasi dengan baik pada perangkat mobile dan desktop, sehingga memastikan pengalaman yang konsisten di berbagai ukuran layar. 
+
+Sedangkan, masih ada beberapa situs web lama yang jarang di-update seperti SIAK-NG Universitas Indonesia yang belum bisa memunculkan interface dengan baik bagi pengguna mobile, menyebabkan elemen-elemen di halaman terlihat tidak proporsional atau tidak berfungsi dengan baik.
+
+### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+1. **Margin**: Jarak luar antara elemen dan elemen lain di sekitarnya. Margin tidak memengaruhi ukuran elemen itu sendiri.
+   ```css
+   .box {
+     margin: 20px;
+   }
+   ```
+2. **Border**: Garis yang mengelilingi elemen. Border terletak di antara padding dan margin.
+   ```css
+   .box {
+     border: 2px solid black;
+   }
+   ```
+3. **Padding**: Jarak antara isi elemen dan tepi dalam elemen (border). Padding memengaruhi ukuran elemen itu sendiri, membuat elemen terlihat lebih besar.
+   ```css
+   .box {
+     padding: 10px;
+   }
+   ```
+
+Implementasi Visualisasi:
+```
+[ Margin ] [ Border ] [ Padding ] [ Content ]
+```
+
+### 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+1. **Flexbox**: Sistem layout berbasis baris atau kolom yang fleksibel. Flexbox sangat baik digunakan untuk membuat layout yang dinamis dan mudah beradaptasi.
+  **Kegunaan**:
+  - Membuat layout responsif secara dinamis.
+  - Menyusun elemen dalam baris atau kolom secara fleksibel.
+
+  **Contoh penggunaan Flexbox**:
+  ```css
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  ```
+
+2. **Grid Layout**: Layout dua dimensi yang lebih kuat, yang memungkinkan untuk menyusun elemen dalam baris dan kolom secara bersamaan.
+  **Kegunaan**:
+  - Membuat layout dua dimensi (baris dan kolom) dengan kontrol penuh.
+  - Mengatur grid responsif yang dapat menyesuaikan berdasarkan ukuran layar.
+
+  **Contoh penggunaan Grid Layout**:
+  ```css
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  ```
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+Berikut langkah langkah yang aku terapkan di tugas 5 PBP:
+
+1. **Mengatur Base Template**:
+   - Memulai dengan membuka file `base.html` dan menambahkan tag `<meta name="viewport">` untuk memastikan desain yang responsif.
+   - Setelah itu, saya menyambungkan **Tailwind CSS** melalui CDN dengan menambahkan tag `<script src="https://cdn.tailwindcss.com">` di bagian `<head>` untuk styling yang fleksibel.
+
+2. **Menerapkan Responsive Design**:
+   - Dengan Tailwind, saya menambahkan class utility seperti `flex`, `grid`, dan `w-full` untuk membuat layout yang responsif.
+   - Saya menggunakan media query bawaan Tailwind (`md:flex`, `lg:grid`) agar tampilan berubah sesuai dengan ukuran layar. Misalnya, tampilan mobile akan menampilkan elemen-elemen secara vertikal, sementara di desktop akan disusun secara horizontal atau dalam bentuk grid. Perbedaan ini jelas terlihat pada implementasi navbar.
+
+3. **Membuat Komponen Navbar**:
+   - Di `navbar.html`, saya menggunakan class Tailwind seperti `bg-pink-600`, `shadow-lg`, dan `fixed` untuk membuat navigasi yang sticky di bagian atas.
+   - Saya juga menambahkan tombol mobile menu menggunakan Tailwind untuk memastikan navbar tetap terlihat baik pada layar kecil dan besar.
+   - Selain requirements dari tutorial, saya menambahkan category pada navbar yaitu home dan products yang masing masing akan mengarah ke section tertentu yang disesuaikan
+
+4. **Mengelola Komponen Produk (Product Card)**:
+   - Saya membuat komponen kartu produk terpisah (`card_product.html`) untuk menampilkan informasi bunga. Setiap kartu menggunakan styling Tailwind seperti `bg-white`, `shadow-lg`, `rounded-lg`, etc.
+   - Di halaman `home.html`, saya menggunakan `{% include 'card_product.html' %}` untuk menyusun tampilan kartu produk dalam grid dengan class Tailwind `grid grid-cols-3 gap-8`.
+
+5. **Implementasi CRUD dengan Tailwind**:
+   - Pada fitur edit dan delete, saya membuat tombol dengan styling Tailwind (`bg-yellow-500` dan `bg-red-500`) dan memastikan transisi hover dengan `hover:bg-yellow-600` dan `transition duration-300` agar tampilan lebih interaktif saat akan dieksekusi.
+   
+6. **Testing dan Finishing**:
+   - Setelah semua komponen dan layout selesai, saya melakukan testing menyesuaikan size perangkat untuk memastikan desain responsif dan berjalan dengan baik. 
+

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ app_name }}</h1>
+{% include 'home.html' %}
+{% include 'navbar.html' %}
+<!-- <h1>{{ app_name }}</h1>
 
 <h5>NPM: </h5>
 <p>{{ npm }}<p>
@@ -29,6 +31,20 @@
     <td>{{ product.description }}</td>
     <td>{{ product.bouquet_type }}</td>
     <td>{{ product.wrap_color }}</td>
+    <td>
+      <a href="{% url 'main:edit_product' product.pk %}">
+          <button>
+              Edit
+          </button>
+      </a>
+    </td>
+    <td>
+      <a href="{% url 'main:delete_product' product.pk %}">
+          <button>
+              Delete
+          </button>
+      </a>
+    </td>
   </tr>
   {% endfor %}
 </table>
@@ -44,5 +60,5 @@
   <button>Logout</button>
 </a>
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-{% endblock content %}
+<h5>Sesi terakhir login: {{ last_login }}</h5> -->
+{% endblock content %}x

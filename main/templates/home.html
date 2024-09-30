@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Home Section -->
+<section id="home" class="relative bg-cover bg-center h-screen" style="background-image: url('{% static 'image/pshome.svg' %}'); background-size: cover; background-position: center;">
+  <div class="flex flex-col justify-center items-start h-full px-10 lg:px-20"> <!-- mt-20 untuk margin-top -->
+    
+    <!-- Informasi NPM, Kelas, Last Login dalam satu card -->
+    {% include "card_info.html" with name=name npm=npm class_name=class_name last_login=last_login %}
+    
+  </div>
+</section>
+
+
+<!-- Products Section -->
+<section id="products" class="py-16 bg-white">
+  <div class="text-center mb-12">
+    <h2 class="mt-6 text-center text-pink-800 text-3xl font-extrabold">Your Flower Collection</h2>
+    <p class="text-gray-500 max-w-xl mx-auto mt-4">
+      You can add, edit, or delete any product collection with ease—managing your floral inventory has never been simpler!
+    </p>
+  </div>
+
+  <div class="container mx-auto px-8">
+    {% if not product_list %}
+    <div class="flex flex-col items-center">
+      <img src="{% static 'image/no-flowers.png' %}" alt="No products" class="h-20 w-20 mb-4"/> <!-- Small image indicating no products -->
+      <p class="text-center text-gray-500 text-l">You don't have any collection</p>
+    {% else %}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Loop through the products and include the card component -->
+        {% for product in product_list %}
+            {% include 'card_product.html' with product=product %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    <div class="text-center mt-12">
+      <a href="{% url 'main:create_product' %}" class="bg-pink-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-pink-700 transition duration-300">Add New Collection</a>
+    </div>
+  </div>
+</section>
+
+
+{% endblock content %}

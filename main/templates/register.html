@@ -1,32 +1,70 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
-<title>Register</title>
+<title>Register - Peonies Site</title>
 {% endblock meta %}
 
 {% block content %}
+<!-- <div class="min-h-screen flex flex-col items-center justify-center w-screen bg-pink-50 py-12 px-4 sm:px-6 lg:px-8" style="background-image: url({% static 'image/hero-flower.png' %}); background-size: cover; background-position: center;"> -->
 
-<div class="login">
-  <h1>Register</h1>
+<div class="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full bg-white bg-opacity-90 p-8 rounded-2xl shadow-lg space-y-8">
+    <div>
+      <h2 class="text-center text-3xl font-extrabold text-pink-800">
+        Create your account
+      </h2>
+    </div>
 
-  <form method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input type="submit" name="submit" value="Daftar" /></td>
-      </tr>
-    </table>
-  </form>
+    <!-- Form -->
+    <form class="mt-8 space-y-6" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      
+      <!-- Field Username -->
+      <div class="space-y-1">
+        <label for="username" class="block text-sm font-medium text-pink-700">Username</label>
+        <input id="username" name="username" type="text" required class="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="Letters, digits and @/./+/-/_ only.">
+      </div>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+      <!-- Field Password -->
+      <div class="space-y-1">
+        <label for="password" class="block text-sm font-medium text-pink-700">Password</label>
+        <input id="password" name="password" type="password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="********">
+      </div>
+
+      <!-- Field Password Confirmation -->
+      <div class="space-y-1">
+        <label for="password_confirmation" class="block text-sm font-medium text-pink-700">Confirm Password</label>
+        <input id="password_confirmation" name="password_confirmation" type="password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm" placeholder="********">
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+          Register
+        </button>
+      </div>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4">
+      {% for message in messages %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-700">
+        Already have an account?
+        <a href="{% url 'main:login' %}" class="font-medium text-pink-600 hover:text-pink-500">
+          Login here
+        </a>
+      </p>
+    </div>
+  </div>
 </div>
-
 {% endblock content %}
