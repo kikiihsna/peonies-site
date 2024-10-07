@@ -4,7 +4,7 @@
 {% block content %}
 {% include 'navbar.html' %}
 
-<div class="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8 mt-10"> <!-- Added mt-20 for margin-top -->  
+<div class="min-h-screen flex items-center justify-center bg-pink-50 py-12 px-4 sm:px-6 lg:px-8 mt-10">  
   <div class="max-w-md w-full bg-white bg-opacity-90 p-8 rounded-2xl shadow-lg space-y-8">
     <div>
       <h1 class="text-center text-3xl font-extrabold text-pink-800">
@@ -23,20 +23,32 @@
             <div class="relative">
               {{ field }}
               {% if field.errors %}
-                <p class="text-sm text-red-600">{{ field.errors }}</p>
+                <p class="text-sm text-red-600">{{ field.errors.0 }}</p>
               {% endif %}
             </div>
           </div>
         {% endfor %}
       </div>
 
-      <div class="flex justify-center">
-        <button type="submit" class="bg-pink-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-pink-700 transition duration-300">
+      <div class="flex flex-col items-center space-y-4 mt-6">
+        <!-- Tombol Submit untuk Edit Product -->
+        <button type="submit" onclick="return confirmEdit();" class="bg-pink-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-pink-700 transition duration-300">
           Edit Product
+        </button>
+
+        <!-- Tombol Cancel yang mengarahkan ke halaman sebelumnya -->
+        <button type="button" onclick="window.history.back();" class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg">
+          Cancel
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<script>
+  function confirmEdit() {
+    return confirm("Are you sure you want to edit this product?");
+  }
+</script>
 
 {% endblock content %}

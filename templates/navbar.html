@@ -5,8 +5,13 @@
     <div class="flex items-center justify-between h-16">
       <!-- Logo / Title -->
       <div class="flex items-center">
-        <img src="{% static 'image/ps-logo.jpg' %}" alt="Logo" class="h-16 w-16 mr-2">
-        <h1 class="text-2xl font-bold text-white">Peonies Site</h1>
+        <a href="/">
+          <img src="{% static 'image/ps-logo.jpg' %}" alt="Logo" class="h-16 w-16 mr-2">
+        </a>
+        <!-- ini belum responsive nya yang bawah -->
+        <!-- <img src="{% static 'image/ps-logo.jpg' %}" alt="Logo" class="h-16 w-16 mr-2"> -->
+        <a class="text-2xl font-bold text-center text-white cursor-pointer" href="/">Peonies Site</a>
+
       </div>
 
       <!-- Desktop Menu (hidden on small screens) -->

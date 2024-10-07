@@ -1,9 +1,5 @@
 from django.urls import path
-from main.views import show_main
-from main.views import show_main, create_product
-from main.views import show_main, create_product, show_xml
-from main.views import show_main, create_product, show_xml, show_json
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id, add_product_ajax
 
 from main.views import register
 from main.views import login_user
@@ -27,4 +23,5 @@ urlpatterns = [
 
     path('edit-product/<uuid:id>', edit_product, name='edit_product'),
     path('delete/<uuid:id>', delete_product, name='delete_product'), # sesuaikan dengan nama fungsi yang dibuat
+    path('create-product-ajax', add_product_ajax, name='add_product_ajax'),
 ]

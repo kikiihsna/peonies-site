@@ -8,6 +8,7 @@ Welcome to Peonies Site, your one-stop shop for fresh, beautiful flowers!
 - **[Tugas 3](#tugas-3)**<br>
 - **[Tugas 4](#tugas-4)**<br>
 - **[Tugas 5](#tugas-5)**<br>
+- **[Tugas 6](#tugas-6)**<br>
 
 
 ## Tugas 2
@@ -399,3 +400,30 @@ Berikut langkah langkah yang aku terapkan di tugas 5 PBP:
 6. **Testing dan Finishing**:
    - Setelah semua komponen dan layout selesai, saya melakukan testing menyesuaikan size perangkat untuk memastikan desain responsif dan berjalan dengan baik. 
 
+
+## Tugas 6
+### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+JavaScript adalah bahasa pemrograman yang sangat penting dalam pengembangan aplikasi web karena dapat dijalankan di sisi client (browser). Beberapa manfaat dari penggunaan JavaScript adalah:
+  - **Interaktivitas**: JavaScript memungkinkan pengembangan elemen-elemen interaktif pada halaman web, seperti dropdown, modals, dan animasi.
+  - **Responsivitas**: Dengan menggunakan AJAX, JavaScript memungkinkan pengambilan data dari server secara asinkron tanpa perlu memuat ulang seluruh halaman.
+  - **Validasi Data**: JavaScript memungkinkan validasi data di sisi client sebelum dikirimkan ke server.
+
+### 2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+`await` digunakan untuk menunggu penyelesaian dari sebuah `Promise`, seperti `fetch()` dalam JavaScript, yang bersifat asinkron. Dengan menggunakan `await`, kode akan menunggu hingga `fetch()` selesai mengambil data sebelum melanjutkan ke baris kode berikutnya. Jika kita tidak menggunakan `await`, eksekusi kode akan dilanjutkan tanpa menunggu hasil `fetch()`, yang bisa menyebabkan data yang diperlukan belum tersedia saat kode dilanjutkan, sehingga bisa menyebabkan error atau output yang salah.
+
+### 3.  Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+`csrf_exempt` digunakan untuk menonaktifkan proteksi CSRF (Cross-Site Request Forgery) pada suatu view yang digunakan untuk menangani AJAX POST. Secara default, Django melindungi setiap POST request dengan CSRF token untuk mencegah serangan CSRF. Namun, pada beberapa kasus seperti AJAX POST request, token CSRF tidak dikirim secara otomatis seperti form biasa, sehingga kita perlu menggunakan `csrf_exempt` atau mengatur pengiriman token secara manual untuk memastikan request dapat diproses dengan benar tanpa kesalahan keamanan.
+
+### 4.  Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Pembersihan data di backend sangat penting untuk keamanan. Meskipun validasi dan pembersihan data bisa dilakukan di frontend, pengguna yang berpengalaman dapat memanipulasi data melalui inspeksi elemen atau alat pengembang browser, yang berarti data yang tidak valid atau berbahaya masih bisa terkirim ke server. Dengan melakukan pembersihan dan validasi di backend, kita memastikan bahwa data yang masuk ke sistem adalah valid, menghindari masalah seperti serangan injeksi SQL, XSS, atau data yang tidak sesuai dengan format yang diharapkan.
+
+### 5.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+Berikut tahapan yang saya terapkan:
+- Pertama saya membuat request AJAX GET yang mengambil data product pengguna yang sudah login. Data ini kemudian diambil dan ditampilkan dalam card product yang di-render secara dinamis di halaman utama. 
+
+Detailnya, saya membuat function add product ajax dulu di views, lalu sesuaikan kembali antara main.html dengan card yang ingin di munculkan (card.html sudah tidak di panggil lagi)
+- Kemudian, saya membuat tombol yang membuka modal dengan form untuk menambahkan product. Setelah form di-submit melalui AJAX POST, modal akan secara otomatis tertutup, form akan di-reset, dan halaman akan menampilkan data terbaru tanpa reload.
+- Dalam mengimplementasikan keamanan, saya menggunakan CSRF token pada setiap request POST untuk mencegah serangan CSRF dan memastikan keamanan saat data dikirim ke server.
+- Lalu, saya menambahkan path ini di urls.py untuk mengarahkan POST request ke view yang akan menyimpan data product ke dalam database.
+- Setelah form product berhasil di-submit, modal akan tertutup, dan form di-reset sehingga data input sebelumnya tidak muncul kembali. Halaman juga diperbarui dengan product terbaru tanpa reload seluruh halaman.
+- Sesuai dengan tutorial, pesan "this input cannot be blank" hanya keluar ketika input pada non ajax itu dimasukkan kode `<img src=x onerror="alert('XSS!');">`, belum berlaku untuk input ajax (karena membutuhkan pemahaman javascript yang lebih dalam)
