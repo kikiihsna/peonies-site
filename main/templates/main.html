@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+<title>Home - Peonies Site</title>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+
+{% endblock meta %}
+
 {% block content %}
 {% include 'navbar.html' %}
 <!-- Home Section -->
@@ -141,13 +147,18 @@
     } else {
       classNameString = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
       productEntries.forEach((item) => {
+        const name = DOMPurify.sanitize(item.fields.name);
+        const price = DOMPurify.sanitize(item.fields.price);
+        const description = DOMPurify.sanitize(item.fields.description);
+        const bouquet_type = DOMPurify.sanitize(item.fields.bouquet_type);
+        const wrap_color = DOMPurify.sanitize(item.fields.wrap_color);
         htmlString += `
           <div class="bg-white border border-gray-200 shadow-lg rounded-lg p-6 flex flex-col items-center text-center">
-            <h1 class="text-lg font-bold text-gray-800">${item.fields.name}</h1>
-            <p class="text-green-500 text-xl font-semibold">$${item.fields.price}</p>
-            <p class="text-gray-600 mt-2">${item.fields.description}</p>
-            <p class="text-gray-500">Bouquet Type: ${item.fields.bouquet_type}</p>
-            <p class="text-gray-500 mb-4">Wrap Color: ${item.fields.wrap_color}</p>
+            <h1 class="text-lg font-bold text-gray-800">${name}</h1>
+            <p class="text-green-500 text-xl font-semibold">$${price}</p>
+            <p class="text-gray-600 mt-2">${description}</p>
+            <p class="text-gray-500">Bouquet Type: ${bouquet_type}</p>
+            <p class="text-gray-500 mb-4">Wrap Color: ${wrap_color}</p>
             <div class="flex space-x-4">
               <a href="/edit-product/${item.pk}" class="bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition duration-300">Edit</a>
               <a href="/delete/${item.pk}" onclick="return confirm('Are you sure you want to delete this product?');" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">Delete</a>
