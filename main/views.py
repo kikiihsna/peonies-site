@@ -22,6 +22,8 @@ from django.views.decorators.http import require_POST
 
 from django.utils.html import strip_tags
 
+import json
+from django.http import JsonResponse
 
 @login_required(login_url='/login')
 def show_main(request):
@@ -147,3 +149,34 @@ def add_product_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = request.user if request.user.is_authenticated else None
+            if user is None:
+                return JsonResponse({"status": "error", "message": "User not authenticated"}, status=403)
+            
+            # Membuat produk baru
+            new_product = Product.objects.create(
+                user=user,
+                name=data["name"],
+                price=int(data["price"]),
+                description=data["description"],
+                bouquet_type=data["bouquet_type"],
+                wrap_color=data["wrap_color"],
+            )
+            new_product.save()
+
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
+    
+@login_required
+def get_user_product_json(request):
+    product = Product.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product))

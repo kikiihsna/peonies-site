@@ -21,5 +21,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),  # Ini harus ada agar rute produk dapat diakses
+    path('auth/', include('authentication.urls')),
 ]
 
